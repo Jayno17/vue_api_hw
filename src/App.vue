@@ -3,7 +3,8 @@
 
 <h1>Studio Ghibli</h1>
 <films-list :films='films'></films-list>
-</div>
+<film-detail :film='selectedFilm'></film-detail>
+    </div>
 </template>
 
 
@@ -25,6 +26,10 @@ export default {
   fetch('https://ghibliapi.herokuapp.com/films')
   .then(res => res.json())
   .then(films => this.films = films)
+
+  eventBus.$on('film-selected', (film)=> {
+    this.selectedFilm = film;
+  })
 },
   components: {
     "films-list": FilmsList,
